@@ -1,0 +1,19 @@
+<div id="user_zone" (mouseover)="showMenu = true" (mouseout)="showMenu = false">
+  <img
+    class="photo"
+    id="user_avatar"
+    src="{{ currentUser.avatarURL }}"
+    err-src="/asset/images/mystery-man.jpg"
+  />
+  <a class="user_nav" href="#" id="user_nickname" target="_blank"
+    ><span>{{ currentUser.nickname }}</span></a
+  >
+  <ul id="user_menu" [hidden]="!showMenu">
+    <li><a [routerLink]="['/basic']" routerLinkActive="active">Setting</a></li>
+    <li><a [routerLink]="['/tools']" routerLinkActive="active">Tools</a></li>
+    <li><a [routerLink]="['/help']" routerLinkActive="active">Help</a></li>
+    <li style="border-bottom: none">
+      <a href="/api/service/logoff">Sign out</a>
+    </li>
+  </ul>
+</div>

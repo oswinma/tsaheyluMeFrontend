@@ -1,0 +1,33 @@
+#main_nav {
+  float: left;
+  margin-left: 130px;
+  padding-top: 25px;
+}
+
+#main_nav li {
+  float: left;
+  margin-right: 6px;
+}
+
+#main_nav li a.active {
+  background: #0BC49C;
+  color: #fff;
+}
+
+#main_nav li a:hover {
+  color: #fff;
+}
+
+#main_nav li a {
+  display: block;
+  font-size: 22px;
+  font-family: MuseoSansCyrl-500;
+  font-weight: bold;
+  color: #e46c0a;
+  padding: 3px 28px 6px 28px;
+  border-radius: 5px 5px 0 0;
+}
+
+#main_nav li a:hover {
+  color: #fb5724;
+}

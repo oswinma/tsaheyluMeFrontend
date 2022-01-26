@@ -1,0 +1,99 @@
+<ul
+  id="link_box"
+  sc="favurlService.sc"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  [infiniteScrollDisabled]=busy
+>
+  <!-- ng-repeat="FavURLShow in favurlService.FavURLShows track by $index" -->
+  <li
+    ng-cloak
+    *ngFor="let FavURLShow of FavURLShowList"
+    data-id="{{ FavURLShow.id }}"
+    class="default"
+  >
+    <span class="angel_outer"></span>
+    <span class="angel_inner"></span>
+    <div class="link_info">
+      <div class="user_info">
+        <a
+          [routerLink]="['/user', FavURLShow.fromid]"
+          routerLinkActive="active"
+          target="_blank"
+        >
+          <img
+            title="Go to user home page"
+            src="{{ FavURLShow.avatarURL }}"
+            err-src="assets/images/mystery-man.jpg"
+          />
+        </a>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" class="unchecked" />
+      </div>
+      <div class="web_info_large" data-id="{{ FavURLShow.urlid }}">
+        <img
+          src="{{ FavURLShow.icon }}"
+          err-src="assets/images/defaulticon.ico"
+        />
+        <a href="{{ FavURLShow.url }}" target="_blank">{{
+          FavURLShow.title
+        }}</a>
+      </div>
+      <div class="control_box">
+        <a
+          ng-click="favurlService.markFav(FavURLShow, $index)"
+          title="Toggle favorite"
+          [ngClass]="{ fav: FavURLShow.fav, unfav: !FavURLShow.fav }"
+        ></a>
+        <a
+          ng-click="favurlService.showDeleteConfirmBox(FavURLShow)"
+          title="Toggle delete"
+          class="del"
+        ></a>
+        <div id="del_box" *ngIf="FavURLShow.deleteConfirmBox">
+          <em></em><strong>Are you sure?</strong>
+          <span
+            ng-click="favurlService.markDelete(FavURLShow)"
+            class="StandardBtn orange delete"
+            >Delete</span
+          >
+          <span
+            ng-click="favurlService.hideDeleteConfirmBox(FavURLShow)"
+            class="StandardBtn gray cnl"
+            >Cancel</span
+          >
+        </div>
+        <a
+          href="###"
+          ng-click="favurlService.markRead(FavURLShow)"
+          [ngClass]="{
+            unread: FavURLShow.status == 1,
+            read: FavURLShow.status == 2
+          }"
+          title="Toggle mark as unread"
+        ></a>
+      </div>
+      <div class="web_info_link">
+        <div class="left">
+          From:
+          <a
+            [routerLink]="['/user', FavURLShow.fromid]"
+            routerLinkActive="active"
+            target="_blank"
+            >{{ FavURLShow.nickname }}</a
+          >
+          | Host:
+          <a href="http://{{ FavURLShow.host }}" target="_blank">{{
+            FavURLShow.host
+          }}</a>
+        </div>
+        <p class="time">{{ FavURLShow.sendtime }}</p>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </li>
+</ul>

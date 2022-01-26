@@ -1,0 +1,67 @@
+#user_zone {
+  float: right;
+  padding-top: 5px;
+  position: relative;
+  padding-left: 10px;
+  height: 45px;
+  border: 1px #f7f7f7 solid;
+  border-bottom: none;
+}
+
+#user_zone:hover {
+  background: #fff;
+  border: 1px #0bc49c solid;
+  border-bottom: none;
+}
+
+#user_zone img.photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 8px;
+}
+
+.user_nav {
+  overflow: hidden;
+  padding-right: 24px;
+  max-width: 150px;
+  white-space: nowrap;
+  line-height: 40px;
+  float: left;
+  margin-right: 10px;
+  background: url(/assets/images/user_arrow.png) right 7px no-repeat;
+}
+
+.user_nav:hover {
+  color: #e46c0a;
+  background: url(/assets/images/user_arrow.png) right -28px no-repeat;
+}
+
+/*user menu*/
+#user_menu {
+  width: 100%;
+  padding-bottom: 20px;
+  position: absolute;
+  left: -1px;
+  top: 50px;
+  z-index: 20;
+  background: #fff;
+  border: 1px #0bc49c solid;
+  border-top: none;
+}
+
+#user_menu li {
+  margin-left: 20px;
+  margin-right: 20px;
+  line-height: 24px;
+  border-bottom: 1px #bbb solid;
+}
+
+#user_menu li a {
+  font-size: 14px;
+}
+
+#user_menu li a:hover {
+  color: #e46c0a;
+}

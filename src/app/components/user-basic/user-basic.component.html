@@ -1,0 +1,148 @@
+<div id="content">
+  <div
+    id="overlay"
+    (click)="overlayClick()"
+    class="ng-hide"
+    [hidden]="!showOverlay"
+  ></div>
+  <div class="ng-hide" id="edit_password_box" [hidden]="!password_box">
+    <span class="close" ng-click="userService.hidePasswordBox()"></span>
+    <div class="clear"></div>
+    <form>
+      <div class="input_box">
+        <label>New Password:</label>
+        <input
+          class="userInfoInput"
+          type="password"
+          name="password"
+          ng-minlength="6"
+          ng-model="user_pass1"
+        />
+        <div class="clear"></div>
+        <div class="input_box">
+          <label>Confirm Password:</label>
+          <input
+            class="userInfoInput"
+            type="password"
+            name="confirm_password"
+            ng-minlength="6"
+            ng-model="user_pass2"
+          />
+          <div class="clear"></div>
+          <input
+            type="button"
+            ng-click="changePass()"
+            class="save_new_pwd StandardBtn orange"
+            value="Save"
+          />
+          <div class="clear"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <form>
+    <div class="input_box">
+      <label for="nickname">Email Address:</label>
+      <input
+        class="userInfoInput"
+        type="text"
+        name="email"
+        id="email"
+        [(ngModel)]="this.currentUser.email"
+      />
+      <a
+        href="###"
+        class="edit_password"
+        ng-click="userService.showPasswordBox()"
+        >Change password</a
+      >
+      <div class="clear"></div>
+    </div>
+    <div class="input_box">
+      <label for="nickname">Nickname:</label>
+      <input
+        class="userInfoInput"
+        type="text"
+        name="nickname"
+        id="nickname"
+        ng-change="updateNickname()"
+        [(ngModel)]="this.currentUser.nickname"
+      />
+      <div class="clear"></div>
+    </div>
+    <div class="input_box">
+      <label for="country">Country:</label>
+      <input
+        class="userInfoInput"
+        type="text"
+        name="country"
+        id="country"
+        ng-change="updateCountry()"
+        [(ngModel)]="this.currentUser.country"
+      />
+      <div class="clear"></div>
+    </div>
+    <div class="input_box">
+      <label title="recieve link from Tsahaylu Team" for="subscribe"
+        >Link Subscription from Tsahaylu Team:</label
+      >
+      <input
+        class="userInfoInputCheckbox"
+        type="checkbox"
+        name="favurlSubscription"
+        id="favurlSubscription"
+        ng-change="updateFavurlSubscription()"
+        [(ngModel)]="this.currentUser.favurlSubscription"
+      />
+      <div class="clear"></div>
+    </div>
+    <div class="input_box">
+      <label title="recieve email from Tsahaylu Team" for="subscribe"
+        >Email Subscription:</label
+      >
+      <input
+        class="userInfoInputCheckbox"
+        type="checkbox"
+        name="emailSubscription"
+        id="emailSubscription"
+        ng-change="updateEmailSubscription()"
+        [(ngModel)]="this.currentUser.emailSubscription"
+      />
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </form>
+  <div id="user-avatar-display" class="submitbox">
+    <h3>Picture</h3>
+    <p id="user-avatar-display-image">
+      <img
+        alt=""
+        src="{{ this.currentUser.avatarURL }}"
+        err-src="/images/mystery-man.jpg"
+        class="avatar avatar-150 photo"
+        height="150"
+        width="150"
+      />
+    </p>
+    <a
+      id="user-avatar-link"
+      class="StandardBtn orange thickbox"
+      href="#"
+      ng-click="updateAvatar()"
+      title="Upload and Crop an Image to be Displayed"
+      >Update Picture</a
+    >
+    <p id="user-avatar-message"></p>
+    <div id="user-avatar-form" ng-show="uploadbtn">
+      <input type="file" class="button" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" />
+      <button
+        type="button"
+        class="btn btn-success btn-s"
+        (click)="uploader.uploadAll()"
+        [disabled]="!uploader.getNotUploadedItems().length"
+      >
+        <span class="glyphicon glyphicon-upload"></span> Upload all
+      </button>
+    </div>
+  </div>
+</div>
