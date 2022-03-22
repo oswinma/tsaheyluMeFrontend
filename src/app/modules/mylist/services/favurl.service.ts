@@ -1,9 +1,11 @@
-import { Observable } from 'rxjs';
-import { Favurlshow } from './../interfaces/favurlshow';
+import { FavurlBackendService } from './favurl-backend.service';
+import { BehaviorSubject, map, Observable, Subject, tap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Result } from 'src/app/shared/interfaces/result';
+import { FavurlDto } from '../interfaces/favurlDto';
+import { List } from 'immutable';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +16,52 @@ export class FavurlService {
   busy: boolean = false;
   favurlType?: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private backendservice: FavurlBackendService) {}
 
-  private apiurl = environment.baseURL + '/api/favurl/';
-  public FavURLShowList: Favurlshow[] = [];
+  // private favurlDtoList$: Subject<List<FavurlDto>> = new Subject<
+  //   List<FavurlDto>
+  // >();
+  // private favurlDtoList$ = new BehaviorSubject(List([]));
+  private favurlDtoList$: BehaviorSubject<FavurlDto[]> = new BehaviorSubject<
+    FavurlDto[]
+  >([]);
 
+  // private conFavurlDtoList: List<FavurlDto> = List([]);
+  // private lists: List[] = [];
+
+  get favurlDtoList() {
+    return this.favurlDtoList$.asObservable();
+  }
+
+  getList(favurlType: string) {
+    if (this.stop) return;
+    if (this.busy) return;
+
+    this.backendservice
+      .getList(favurlType, this.sc)
+      .pipe(
+        map((result) => result.data),
+        // tap(data => console.log(data)),
+        tap((data) => {
+          // console.log("data.startCursor: "+ data.startCursor);
+          if (this.sc == data.startCursor) this.stop = true;
+          this.sc = data.startCursor;
+          // console.log('this.sc: ' + this.sc);
+        }),
+        map((data) => data.FavurlDtoList)
+      )
+      .subscribe({
+        next: (newFavurlDtoList) => {
+          // this.conFavurlDtoList = this.conFavurlDtoList.push(newFavurlDtoList);
+          this.favurlDtoList$.next(
+            this.favurlDtoList$.getValue().concat(newFavurlDtoList)
+          );
+          this.busy = false;
+        },
+        error: (error) => console.log('Error retrieving Todos'),
+      });
+  }
+  /*
   NextPage(type: string) {
     if (this.stop) return;
     if (this.busy) return;
@@ -46,15 +89,7 @@ export class FavurlService {
 
       this.busy = false;
     });
-  }
-
-  getFavurlList(type: string): Observable<Result> {
-    if (type != null) {
-      this.favurlType = type;
-    }
-    const url = this.apiurl + this.favurlType + '?startCursor=' + this.sc;
-    return this.http.get<Result>(url);
-  }
+  } */
 
   /*
     favurlService.prototype.NextPage = function(type) {

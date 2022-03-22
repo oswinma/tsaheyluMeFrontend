@@ -1,21 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Favurlshow } from '../../interfaces/favurlshow';
 import { FavurlService } from '../../services/favurl.service';
 
 @Component({
   selector: 'app-favurl-list',
   templateUrl: './favurl-list.component.html',
   styleUrls: ['./favurl-list.component.css'],
+  providers: [FavurlService],
 })
 export class FavurlListComponent implements OnInit {
   // @Input() type: string='';
 
   type = '';
-  sc = '';
-  stop: boolean = false;
-  busy: boolean = false;
-  public FavURLShowList: Favurlshow[] = [];
+  // sc = '';
+  // stop: boolean = false;
+  // busy: boolean = false;
+  loading: boolean = true;
 
   constructor(
     private favurlService: FavurlService,
@@ -32,6 +32,22 @@ export class FavurlListComponent implements OnInit {
     // });
   }
 
+  get favurlDtoList$() {
+    return this.favurlService.favurlDtoList;
+  }
+
+  get sc() {
+    return this.favurlService.sc;
+  }
+
+  get stop() {
+    return this.favurlService.stop;
+  }
+
+  get busy() {
+    return this.favurlService.busy;
+  }
+
   ngOnInit(): void {
     const urlstring = this.router.url;
     // console.log(urlstring);
@@ -40,50 +56,51 @@ export class FavurlListComponent implements OnInit {
       urlstring.length
     );
 
-    this.getFavurlList();
+    this.favurlService.getList(this.type);
 
     // this.activatedRoute.paramMap.subscribe((params: any) => {
-      // this.type = params.get('type');
-      // console.log('type', this.type);
-      // });
+    // this.type = params.get('type');
+    // console.log('type', this.type);
+    // });
 
-      // this.activatedRoute.params.subscribe((params)=>{
-        //   console.log('updatedParams', params);
-        //   this.favurlService.NextPage(this.type);
-        //   console.log('updatedParams', params);
-        // });
+    // this.activatedRoute.params.subscribe((params)=>{
+    //   console.log('updatedParams', params);
+    //   this.favurlService.NextPage(this.type);
+    //   console.log('updatedParams', params);
+    // });
   }
 
-  getFavurlList() {
-    // console.log('getlist');
-    // console.log('this.stop', this.stop);
-    // console.log('this.busy', this.busy);
-    if (this.stop) return;
-    if (this.busy) return;
+  // getFavurlList() {
+  //   // console.log('getlist');
+  //   // console.log('this.stop', this.stop);
+  //   // console.log('this.busy', this.busy);
+  //   if (this.stop) return;
+  //   if (this.busy) return;
 
-    // const params = new HttpParams()
-    // .set('email', inputemail);
+  //   // const params = new HttpParams()
+  //   // .set('email', inputemail);
 
-    this.favurlService.getFavurlList(this.type).subscribe((result) => {
-      // console.log('call');
-      var favurlshows = result.data.FavURLShows;
-      for (var i = 0; i < favurlshows.length; i++) {
-        favurlshows[i].show = true;
-        favurlshows[i].deleteConfirmBox = false;
-        var sendt = favurlshows[i].sendtime;
-        favurlshows[i].sendtime = sendt;
-        this.FavURLShowList.push(favurlshows[i]);
-      }
+  //   this.favurlService.getList(this.type).subscribe((result) => {
+  //     // console.log('call');
+  //     var favurlshows = result.data.FavURLShows;
+  //     for (var i = 0; i < favurlshows.length; i++) {
+  //       favurlshows[i].show = true;
+  //       favurlshows[i].deleteConfirmBox = false;
+  //       var sendt = favurlshows[i].sendtime;
+  //       favurlshows[i].sendtime = sendt;
+  //       this.FavURLShowList.push(favurlshows[i]);
+  //     }
 
-      if (this.sc == result.data.startCursor) this.stop = true;
+  //     if (this.sc == result.data.startCursor) this.stop = true;
 
-      this.sc = result.data.startCursor;
+  //     this.sc = result.data.startCursor;
 
-      this.busy = false;
-    });
-  }
+  //     this.busy = false;
+  //   });
+  // }
 
   onScroll() {
-    this.getFavurlList();
+    // this.getFavurlList();
+    this.favurlService.getList(this.type);
   }
 }

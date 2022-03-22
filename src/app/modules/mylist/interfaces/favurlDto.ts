@@ -1,4 +1,4 @@
-export interface Favurlshow {
+export interface FavurlDto {
     show: boolean;
     deleteConfirmBox: boolean;
 

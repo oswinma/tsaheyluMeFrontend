@@ -9,9 +9,10 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderNavComponent } from './layout/header-nav/header-nav.component';
 import { HeaderComComponent } from './layout/header-com/header-com.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports: [BrowserModule, AppRoutingModule, CoreModule, SharedModule],
+  imports: [BrowserModule, AppRoutingModule, CoreModule, SharedModule, BrowserAnimationsModule],
 
   declarations: [
     HeaderComponent,

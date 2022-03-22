@@ -5,12 +5,25 @@ import { MessageNumComponent } from './components/message-num/message-num.compon
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, FormsModule,HttpClientModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
+    MatCardModule,
+  ],
   declarations: [MessageNumComponent, UserZoneComponent],
-  exports: [CommonModule, MessageNumComponent, UserZoneComponent, RouterModule,FormsModule,HttpClientModule ],
+  exports: [
+    CommonModule,
+    MessageNumComponent,
+    UserZoneComponent,
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
+    MatCardModule,
+  ],
 })
-export class SharedModule {
-
-}
+export class SharedModule {}

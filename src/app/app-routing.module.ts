@@ -22,6 +22,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'admin',
+        loadChildren: () =>
+          import('src/app/modules/admin/admin.module').then(
+            (m) => m.AdminModule
+          ),
+      },
+      {
         path: 'basic',
         loadChildren: () =>
           import('src/app/modules/basic/basic.module').then(
@@ -33,6 +40,27 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/app/modules/mylist/mylist.module').then(
             (m) => m.MylistModule
+          ),
+      },
+      {
+        path: 'friends',
+        loadChildren: () =>
+          import('src/app/modules/friends/friends.module').then(
+            (m) => m.FriendsModule
+          ),
+      },
+      {
+        path: 'mylist',
+        loadChildren: () =>
+          import('src/app/modules/invitations/invitations.module').then(
+            (m) => m.InvitationsModule
+          ),
+      },
+      {
+        path: 'mylist',
+        loadChildren: () =>
+          import('src/app/modules/messages/messages.module').then(
+            (m) => m.MessagesModule
           ),
       },
     ],
