@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { FavurlDto } from '../interfaces/favurlDto';
+import { FavurlDto } from '../interfaces/favurl-dto-model';
 import { Result } from 'src/app/shared/interfaces/result';
 
 @Injectable({
@@ -14,20 +14,20 @@ export class FavurlBackendService {
 
   private apiurl = environment.baseURL + '/api/favurl';
 
-  get(favurlDto: FavurlDto): Observable<Object> {
-    return this.http.get(this.apiurl + '/' + favurlDto.id);
+  get(favurlDto: FavurlDto): Observable<FavurlDto> {
+    return this.http.get<FavurlDto>(this.apiurl + '/' + favurlDto.id);
   }
 
-  delete(favurlDto: FavurlDto): Observable<Object> {
-    return this.http.delete(this.apiurl + '/' + favurlDto.id);
+  delete(favurlDto: FavurlDto): Observable<void> {
+    return this.http.delete<void>(this.apiurl + '/' + favurlDto.id);
   }
 
-  update(favurlDto: FavurlDto): Observable<Object> {
-    return this.http.put(this.apiurl, JSON.stringify(favurlDto));
+  update(favurlDto: FavurlDto): Observable<FavurlDto> {
+    return this.http.put<FavurlDto>(this.apiurl, JSON.stringify(favurlDto));
   }
 
-  insert(favurlDto: FavurlDto): Observable<Object> {
-    return this.http.post(this.apiurl, JSON.stringify(favurlDto));
+  insert(favurlDto: FavurlDto): Observable<FavurlDto> {
+    return this.http.post<FavurlDto>(this.apiurl, JSON.stringify(favurlDto));
   }
 
   getList(type: string, sc: string): Observable<Result> {

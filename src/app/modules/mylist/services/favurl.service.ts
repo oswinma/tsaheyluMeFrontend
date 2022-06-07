@@ -1,10 +1,21 @@
+import { FavurlDto } from './../interfaces/favurl-dto-model';
 import { FavurlBackendService } from './favurl-backend.service';
-import { BehaviorSubject, map, Observable, Subject, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  interval,
+  map,
+  merge,
+  Observable,
+  scan,
+  startWith,
+  Subject,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Result } from 'src/app/shared/interfaces/result';
-import { FavurlDto } from '../interfaces/favurlDto';
 import { List } from 'immutable';
 
 @Injectable({
@@ -16,28 +27,37 @@ export class FavurlService {
   busy: boolean = false;
   favurlType?: string;
 
-  constructor(private backendservice: FavurlBackendService) {}
-
   // private favurlDtoList$: Subject<List<FavurlDto>> = new Subject<
   //   List<FavurlDto>
   // >();
   // private favurlDtoList$ = new BehaviorSubject(List([]));
-  private favurlDtoList$: BehaviorSubject<FavurlDto[]> = new BehaviorSubject<
-    FavurlDto[]
-  >([]);
+  private favurlDtoListSubject$: BehaviorSubject<FavurlDto[]> =
+    new BehaviorSubject<FavurlDto[]>([]);
 
   // private conFavurlDtoList: List<FavurlDto> = List([]);
   // private lists: List[] = [];
+  public favurlDtoListObs$ = this.favurlDtoListSubject$.asObservable();
+  public clickLoad$: Subject<void> = new Subject<void>();
 
-  get favurlDtoList() {
-    return this.favurlDtoList$.asObservable();
+  interval$ = interval(5000);
+  refresh$ = merge(this.clickLoad$).pipe(startWith(true));
+
+  constructor(private backendService: FavurlBackendService) {}
+
+  initFavurlDtoListObs$(type: string) {
+    this.favurlDtoListObs$ = this.refresh$.pipe(
+      switchMap(() => this.getList(type)),
+      scan((acc, value) => acc.concat(value))
+    );
+
+    console.log(this.favurlDtoListSubject$.getValue());
   }
 
-  getList(favurlType: string) {
+  /* getList(favurlType: string) {
     if (this.stop) return;
     if (this.busy) return;
 
-    this.backendservice
+    this.backendService
       .getList(favurlType, this.sc)
       .pipe(
         map((result) => result.data),
@@ -60,6 +80,39 @@ export class FavurlService {
         },
         error: (error) => console.log('Error retrieving Todos'),
       });
+  }*/
+
+  getList(favurlType: string): Observable<FavurlDto[]> {
+    // if (this.stop) return null;
+    // if (this.busy) return null;
+    console.log('getlist');
+    return this.backendService.getList(favurlType, this.sc).pipe(
+      map((result) => result.data),
+      // tap(data => console.log(data)),
+      tap((data) => {
+        // console.log("data.startCursor: "+ data.startCursor);
+        if (this.sc == data.startCursor) this.stop = true;
+        this.sc = data.startCursor;
+        // console.log('this.sc: ' + this.sc);
+      }),
+      map((data) => data.FavurlDtoList)
+    );
+  }
+
+  updateView(favurlDto: FavurlDto) {
+    this.favurlDtoListSubject$.pipe(
+      map((favurlDtos: FavurlDto[]) => {
+        const index = favurlDtos.findIndex(
+          (cFavurlDto) => cFavurlDto.id === favurlDto.id
+        );
+        favurlDtos[index].fav = !favurlDtos[index].fav;
+        return favurlDtos;
+      })
+    );
+  }
+
+  update(favurlDto: FavurlDto): Observable<FavurlDto> {
+    return this.backendService.update(favurlDto);
   }
   /*
   NextPage(type: string) {

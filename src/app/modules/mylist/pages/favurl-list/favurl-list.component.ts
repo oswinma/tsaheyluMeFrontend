@@ -1,5 +1,19 @@
+import { FavurlDto } from './../../interfaces/favurl-dto-model';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  find,
+  first,
+  interval,
+  map,
+  merge,
+  Observable,
+  scan,
+  startWith,
+  Subject,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { FavurlService } from '../../services/favurl.service';
 
 @Component({
@@ -12,43 +26,19 @@ export class FavurlListComponent implements OnInit {
   // @Input() type: string='';
 
   type = '';
-  // sc = '';
-  // stop: boolean = false;
-  // busy: boolean = false;
-  loading: boolean = true;
+
+  // public click$: Subject<void> = new Subject<void>();
+  // interval$ = interval(5000);
+
+  // refresh$ = merge(this.click$).pipe(startWith(true));
+
+  // public view$: Observable<FavurlDto[]> = new Observable<FavurlDto[]>();
 
   constructor(
     private favurlService: FavurlService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    // this.activatedRoute.url.subscribe((url) => {
-    //   // Code to get the new notification data
-    //   // and display it
-    //   console.log(url[1].path);
-    //   this.type=url[1].path
-    //   this.favurlService.NextPage(this.type);
-    //   console.log('url subscribe');
-    // });
-  }
-
-  get favurlDtoList$() {
-    return this.favurlService.favurlDtoList;
-  }
-
-  get sc() {
-    return this.favurlService.sc;
-  }
-
-  get stop() {
-    return this.favurlService.stop;
-  }
-
-  get busy() {
-    return this.favurlService.busy;
-  }
-
-  ngOnInit(): void {
     const urlstring = this.router.url;
     // console.log(urlstring);
     this.type = urlstring.substring(
@@ -56,51 +46,26 @@ export class FavurlListComponent implements OnInit {
       urlstring.length
     );
 
-    this.favurlService.getList(this.type);
+    this.favurlService.initFavurlDtoListObs$(this.type);
 
-    // this.activatedRoute.paramMap.subscribe((params: any) => {
-    // this.type = params.get('type');
-    // console.log('type', this.type);
-    // });
-
-    // this.activatedRoute.params.subscribe((params)=>{
-    //   console.log('updatedParams', params);
-    //   this.favurlService.NextPage(this.type);
-    //   console.log('updatedParams', params);
-    // });
+    /*     this.view$ = this.refresh$.pipe(
+      switchMap(() => this.favurlService.getList(this.type)),
+      scan((acc, value) => acc.concat(value))
+    ); */
   }
 
-  // getFavurlList() {
-  //   // console.log('getlist');
-  //   // console.log('this.stop', this.stop);
-  //   // console.log('this.busy', this.busy);
-  //   if (this.stop) return;
-  //   if (this.busy) return;
+  markFav(favurlDto: FavurlDto) {
+    this.favurlService.updateView(favurlDto);
+  }
 
-  //   // const params = new HttpParams()
-  //   // .set('email', inputemail);
+  get view$() {
+    return this.favurlService.favurlDtoListObs$;
+  }
+  get clickLoad$() {
+    return this.favurlService.clickLoad$;
+  }
 
-  //   this.favurlService.getList(this.type).subscribe((result) => {
-  //     // console.log('call');
-  //     var favurlshows = result.data.FavURLShows;
-  //     for (var i = 0; i < favurlshows.length; i++) {
-  //       favurlshows[i].show = true;
-  //       favurlshows[i].deleteConfirmBox = false;
-  //       var sendt = favurlshows[i].sendtime;
-  //       favurlshows[i].sendtime = sendt;
-  //       this.FavURLShowList.push(favurlshows[i]);
-  //     }
-
-  //     if (this.sc == result.data.startCursor) this.stop = true;
-
-  //     this.sc = result.data.startCursor;
-
-  //     this.busy = false;
-  //   });
-  // }
-
-  onScroll() {
-    // this.getFavurlList();
-    this.favurlService.getList(this.type);
+  ngOnInit(): void {
+    this.clickLoad$.next();
   }
 }

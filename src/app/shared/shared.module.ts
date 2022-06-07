@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { UserZoneComponent } from './components/user-zone/user-zone.component';
 import { MessageNumComponent } from './components/message-num/message-num.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 
@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
     FormsModule,
     HttpClientModule,
     MatCardModule,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}
