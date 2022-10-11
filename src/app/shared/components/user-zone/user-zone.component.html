@@ -1,0 +1,10 @@
+<div id="user_zone" *ngIf="isLogin()">
+  <button mat-button (click)="openMenu()" routerLinkActive="active">
+    <img
+      class="photo"
+      id="user_avatar"
+      src="{{ currentUser.avatarURL }}"
+      err-src="/asset/images/mystery-man.jpg"
+    />
+  </button>
+</div>

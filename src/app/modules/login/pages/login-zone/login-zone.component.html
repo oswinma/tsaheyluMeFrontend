@@ -1,0 +1,61 @@
+<div id="login_box">
+  <div class="left">
+    <h2>Sign in</h2>
+    <div>
+      <div class="input_box">
+        <input
+          type="text"
+          [(ngModel)]="email"
+          (keydown.enter)="check()"
+          autofocus
+          (focusout)="emailCheck()"
+          name="email"
+          placeholder="Email"
+        />
+      </div>
+      <div class="input_box">
+        <input
+          type="password"
+          [(ngModel)]="password"
+          (keydown.enter)="check()"
+          name="password"
+          placeholder="Password"
+        />
+      </div>
+      <p>
+        <a href="/forgot.html">Forget password?</a>
+        <input
+          type="button"
+          class="StandardBtn orange submit"
+          (click)="check()"
+          value="Sign in"
+        />
+      </p>
+      <p>
+        <a href="/signup.html">Don't have an account? Create one.</a>
+      </p>
+      <p class="wrong_info" *ngIf="responseShow">{{ responseContent }}</p>
+    </div>
+  </div>
+  <div id="oauth_login">
+    <span>Or you can:</span>
+    <ul>
+      <li>
+        <a href="/api/service/googleOAuth"
+          ><img src="assets/images/google_login.png"
+        /></a>
+      </li>
+      <li>
+        <a href="/api/service/facebookOAuth"
+          ><img src="assets/images/facebook_login.png"
+        /></a>
+      </li>
+      <li>
+        <a href="/api/service/twitterOAuth"
+          ><img src="assets/images/twitter_login.png"
+        /></a>
+      </li>
+    </ul>
+  </div>
+  <div class="clear"></div>
+</div>

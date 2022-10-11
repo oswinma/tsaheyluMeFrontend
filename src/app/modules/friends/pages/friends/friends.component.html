@@ -1,0 +1,104 @@
+<p>friends pages</p>
+
+<!-- <div id="search_box">
+  <span id="all_friends_button" class="StandardBtn orange" ng-click="allFriendsReset()" title="display all your friends in list">All friends</span>
+  <input type="text" id="search_friend" ng-model="searchWord" ng-enter="searchUserEvent()" placeholder="Search user by nickname or email address" />
+  <a href="" ng-click="clearSearchResult()" id="search_user_clear"></a>
+  <p>Find Friends from:</p>
+  <a href="" provider-id="google"   ng-click="findFriends('google')" class="find_friend" title="find your Google friends in Tsahaylu or invite them to signup" ><img src="/images/google.jpg"  /></a>
+  <a href="" provider-id="facebook" ng-click="findFriends('facebook')" class="find_friend" title="find your Facebook friends in Tsahaylu"><img src="/images/facebook.png" /></a>
+  <a href="" provider-id="twitter" ng-click="findFriends('twitter')"  class="find_friend" title="find your Twitter friends in Tsahaylu" ><img src="/images/twitter.jpg" /></a>
+  <span ng-click="showSentEmailInvitationBoxEvent()" class="StandardBtn orange" id="email_invite_button" title="invite friend to signup by email">Invite friend</span>
+  <div class="clear"></div>
+</div>
+<div id="content">
+  <div id="friend_div">
+      <div style="width: 100%;height: 20px;margin-bottom: 20px;">
+          <span class="introdes" id="friend_intro">{{instrductionTitle}}</span>
+          <h3 class="introline" ></h3>
+      </div>
+      <div id="contactListDiv">
+          <div class="contactLoading" id="loading" ng-cloak ng-show="ContactService.showFindFriendLoading">
+              <img src="images/loading.gif"/>
+          </div>
+              <div class="divCenter" id="search_friends_result" ng-cloak ng-show="ContactService.showResult">
+                  <p><span>{{ContactService.resultMsg}}</span></p>
+                  <p><a href="" ng-click="inviteSignupEmailEvent()" ng-show="ContactService.showInviteLink" id="search_invite">{{ContactService.inviteSignupEmail}}</a></p>
+                  <p><a href="" ng-click="clearSearchResult()">close</a></p>
+              </div>
+              <ul id="friends_list">
+                  <li ng-cloak id="TsahayluTeamLi" ng-show="tsahayluTeamShow">
+                      <a>
+                          <img ng-src="{{ContactService.tsahayluTeam.avatarURL}}"  err-src='/images/mystery-man-50.jpg'>
+                      </a>
+                      <p title="{{ContactService.tsahayluTeam.nickname}}" id="TsahayluTeamNickname" class="friend_nickname">{{ContactService.tsahayluTeam.nickname}}</p>
+                      <div class="friend_btns">
+                          <span  ng-class="{false: 'block', true: 'unblock'}[ContactService.tsahayluTeam.status ==1]" ng-click="blockFriendEvent(ContactService.tsahayluTeam)" ng-attr-title="{{ContactService.tsahayluTeam.status==1 ? 'you and this friend can send link to each other' : 'you can send link to this friend, but link sent from this friend is blocked'}}" ng-cloak>
+                          </span>
+                          <span ng-class="{true: 'popup', false: 'unpopup'}[ContactService.tsahayluTeam.popup]"  ng-click="changePopupEvent(ContactService.tsahayluTeam)" ng-attr-title="{{ContactService.tsahayluTeam.popup ? 'browser will create a tab when this friend send a link to you' : 'link will be put in new list when this friend send a link to you'}}" ng-cloak>
+                          </span>
+                      </div>
+                  </li>
+                  <li ng-cloak ng-repeat="Contact in ContactService.Contacts" ng-if="Contact.show" user-id="{{Contact.id}}" draggable="true" ondragstart="onDragStart(this)" ondragend="onDragEnd(this)" friend-id="{{Contact.friendid}}" title="drag friends to group, then you can send link to them">
+                      <a  href='/user/{{Contact.id}}'  target="_blank">
+                          <img ng-src="{{Contact.avatarURL}}"  err-src='/images/mystery-man-50.jpg'>
+                      </a>
+                      <p title="{{Contact.nickname}}" class="friend_nickname">{{Contact.nickname}}</p>
+                      <div id="contactEmail" title="{{Contact.email}}" class="c_email" ng-show='Contact.showEmail'>{{Contact.email}}</div>
+                      <a href="" class="orange invite_btn" ng-click="inviteUserEvent(Contact)" ng-show='Contact.showInviteButton' >Invite</a>
+                      <div class="friend_btns" ng-show='Contact.showButtons'>
+                          <sup title="remove friend from your friend list" ng-click="showDeleteConfirmDialEvent(Contact)" class="del_friend" >
+                          </sup>
+                          <span  ng-class="{false: 'block', true: 'unblock'}[Contact.status ==1]" ng-click="blockFriendEvent(Contact)" ng-attr-title="{{Contact.status==1 ? 'you and this friend can send link to each other' : 'you can send link to this friend, but link sent from this friend is blocked'}}" ng-cloak >
+                          </span>
+                          <span  ng-class="{true: 'popup', false: 'unpopup'}[Contact.popup]"  ng-click="changePopupEvent(Contact)" ng-attr-title="{{Contact.popup ? 'browser will create a tab when this friend send a link to you' : 'link will be put in new list when this friend send a link to you'}}" ng-cloak>
+                          </span>
+                      </div>
+                      <div id="del_box" ng-show='Contact.showDeleteFriendConfirmDial'>
+                          <em></em>
+                          <strong>Are you sure to remove {{Contact.nickname}} from friend list?</strong>
+                          <span class="remove" ng-click="removeFriendEvent(Contact)" >Delete</span>
+                          <span href="###" ng-click="hideDeleteFriendConfirmDialEvent(Contact)" class="cnl">Cancel</span>
+                      </div>
+                      <div id="del_box" ng-show='Contact.showDeleteGroupConfirmDial'>
+                          <em></em>
+                          <strong>Are you sure to remove {{Contact.nickname}} from your group?</strong>
+                          <span class="remove" ng-click="removeFriendFromGroupEvent(Contact)" >Delete</span>
+                          <span href="###" ng-click="hideDeleteGroupConfirmDialEvent(Contact)" class="cnl">Cancel</span>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+          <div id="contact_line"></div>
+          <ul id="contact_list">
+          </ul>
+          <div id="search_user_more">More......</div>
+      </div>
+      <h3 class="introline" ><span class="introdes" >Group List</span></h3>
+      <div>
+          <ul id="group_box">
+              <li>
+                  <div class="add_circle_outer">
+                      <div class="add_circle_inner">
+                          <p><a href="" ng-click="showCreateGroupBoxEvent()">Add Group</a></p>
+                      </div>
+                  </div>
+              </li>
+              <li ng-cloak ng-repeat="GroupDTO in GroupService.GroupDTOs" group-des="{{GroupDTO.des}}" ondragenter="onDragEnter(this)" ondragover="onDragOver(this)" group-id="{{GroupDTO.id}}" ondrop="onDrop(this)">
+                  <div class="circle_outer">
+                      <div title="" class="circle_inner">
+                          <div class="group_content"><strong class="friends_num">{{GroupDTO.num}}</strong>
+                              <a herf="" ng-click="getFriendsInGroup(GroupDTO)" class="group_name">{{GroupDTO.name}}</a>
+                              <div class="btns" ng-show="GroupDTO.showButtons">
+                                  <a title="edit group" herf=""   ng-click="showUpdateGroupBoxEvent(GroupDTO)"  class="change_group">
+                                      <em class="edit_group"></em></a>
+                                  <a herf="" ng-click="ShowDeleteGroupBoxEvent(GroupDTO)" title="delete group" class="delete_group"><em class="del_group"></em></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+  </div>
+ -->

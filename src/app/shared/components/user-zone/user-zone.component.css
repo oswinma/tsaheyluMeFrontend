@@ -1,0 +1,7 @@
+#user_zone img.photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 8px;
+}

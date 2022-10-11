@@ -1,0 +1,39 @@
+<div ng-cloak data-id="{{ favurlDto.id }}">
+  <div>
+    <div class="favurl left">
+      <a target="_blank" [routerLink]="['/user', favurlDto.fromid]">
+        <img class="favurl-avatar" src="{{ favurlDto.avatarURL }}" />
+      </a>
+    </div>
+    <div class="favurl middle">
+      <div class="row first">
+        <img class="favurl-icon" src="{{ favurlDto.icon }}" />
+        <a target="_blank" href="{{favurlDto.url}}" class="favurl-title"><span>{{ favurlDto.title }}</span></a>
+      </div>
+      <div class="row second">
+        <span>From:</span>
+        <a [routerLink]="['/user', favurlDto.fromid]" routerLinkActive="active"
+          target="_blank">{{favurlDto.nickname}}</a>
+        <span>| Host:</span>
+        <a href="http://{{ favurlDto.host }}" target="_blank">{{favurlDto.host}}</a>
+      </div>
+    </div>
+    <div class="favurl right">
+      <button mat-icon-button *ngIf="favurlDto.status==1" (click)="archiveFavurl(favurlDto)">
+        <mat-icon>archive</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="favurlDto.status==2" (click)="unarchiveFavurl(favurlDto)">
+        <mat-icon>unarchive</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="favurlDto.fav" (click)="favFavurl(favurlDto)">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-icon-button *ngIf="!favurlDto.fav" (click)="favFavurl(favurlDto)">
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <button mat-icon-button (click)="deleteFavurl(favurlDto)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

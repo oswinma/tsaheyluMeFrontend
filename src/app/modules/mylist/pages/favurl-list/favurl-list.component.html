@@ -1,0 +1,21 @@
+<ng-container *ngIf="view$ | async as favurlDtoList; else busy">
+  <div
+    id="link_box"
+    sc="favurlService.sc"
+    infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="clickLoad$.next()"
+  >
+    <!-- ng-repeat="favurlDto in favurlService.favurlDtos track by $index" -->
+    <app-favurl-row
+      *ngFor="let favurlDto of favurlDtoList"
+      [favurlDto]="favurlDto"
+      (handleMarkFav)="markFav($event)"
+    ></app-favurl-row>
+  </div>
+</ng-container>
+<ng-template #busy
+  ><div id="loading" class="loading" class="ng-hide">
+    <img src="/assets/images/loading.gif" /></div
+></ng-template>

@@ -1,0 +1,142 @@
+#user-avatar-link {
+  margin: 20px;
+}
+
+#content {
+  padding: 10px 0;
+}
+
+#content form {
+  padding: 30px;
+}
+
+form .input_box {
+  margin-bottom: 20px;
+}
+
+form .input_box label {
+  display: inline-block;
+  width: 180px;
+  float: left;
+}
+
+/* form .input_box input {
+  margin-left: 14px;
+  display: inline-block;
+  height: 35px;
+  width: 210px;
+  float: left;
+  padding-left: 10px;
+  border: 1px #aaa solid;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px #999 inset;
+  -webkit-transition: .2s ease-in-out;
+} */
+
+.userInfoInput {
+  margin-left: 14px;
+  display: inline-block;
+  height: 35px;
+  width: 210px;
+  float: left;
+  padding-left: 10px;
+  border: 1px #aaa solid;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px #999 inset;
+  -webkit-transition: .2s ease-in-out;
+}
+
+.userInfoInputCheckbox {
+  width: 15px;
+  height: 15px;
+  margin-left: 14px;
+  margin-top: 10px;
+}
+
+form .input_box input:focus {
+  border: 1px #eb6621 solid;
+  box-shadow: 0px 0px 5px #f9c4a8 inset;
+  box-shadow: 0px 0px 5px #f9c4a8;
+}
+
+#content form .input_box .mypic {
+  margin-left: 14px;
+  display: inline-block;
+  width: 220px;
+  height: 220px;
+}
+
+#content form .edit_info {
+  margin-top: 50px;
+  margin-left: 100px;
+  width: 140px;
+  height: 34px;
+  color: #fff;
+  font-size: 18px;
+  background: #608540;
+  border: 2px #97c22e solid;
+  float: left;
+  border-radius: 5px;
+}
+
+#content form .edit_info:hover {
+  background: #709e48;
+}
+
+#content form .edit_info:active {
+  box-shadow: 3px 3px 5px #486132 inset;
+}
+
+.edit_password {
+  float: left;
+  line-height: 26px;
+  margin-left: 100px;
+}
+
+.edit_password:hover {
+  color: #fb6e24;
+  text-decoration: underline;
+}
+
+#edit_password_box {
+  position: absolute;
+  left: 40%;
+  top: 35%;
+  z-index: 1001;
+  width: 440px;
+  height: 250px;
+  background: #F7F7F7;
+  border: 2px #666 solid;
+  box-shadow: 3px 3px 10px #999;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+  margin: 3px 3px 0 0;
+  display: block;
+  width: 9px;
+  height: 9px;
+  background: url(/assets/images/close.png) no-repeat;
+}
+
+#edit_password_box form {
+  padding: 20px;
+}
+
+#edit_password_box label {
+  width: 130px;
+}
+
+#edit_password_box p {
+  color: #f8935e;
+  padding-bottom: 4px;
+  text-align: center;
+}
+
+#edit_password_box .save_new_pwd {
+
+  width: 120px;
+  margin-top: 10px;
+  margin-left: 150px;
+}
