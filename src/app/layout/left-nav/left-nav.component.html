@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav #sideNav opened="true" mode="side">
+  <mat-sidenav class="sideNav" opened="true" mode="side">
     <mat-nav-list>
       <a [routerLink]="['/mylist/new']" mat-list-item>
         <mat-icon>archive</mat-icon>New
@@ -10,17 +10,11 @@
       <a [routerLink]="['/mylist/fav']" mat-list-item>
         <mat-icon>favorite</mat-icon>Favorites
       </a>
+
       <mat-divider></mat-divider>
     </mat-nav-list>
   </mat-sidenav>
-
-  <mat-sidenav-content>
-    <!-- <mat-drawer-container
-      style="height: 100px; margin: 10px; border: 1px solid black"
-    >
-      <mat-drawer mode="side" opened="true">Drawer Side</mat-drawer>
-      <mat-drawer-content>Content</mat-drawer-content>
-    </mat-drawer-container> -->
+  <mat-sidenav-content class="sideContent">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

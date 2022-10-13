@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/shared/services/user.service';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { UserZoneComponent } from './components/user-zone/user-zone.component';

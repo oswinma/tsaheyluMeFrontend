@@ -1,7 +1,8 @@
+import { UserBackendService } from './backend/user-backend.service';
 import { Injectable } from '@angular/core';
 // 引入 HttpClient 类
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { User } from '../interfaces/user';
 import { Result } from '../interfaces/result';
@@ -12,12 +13,19 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   public currentUser!: User;
-  private apiurl = environment.baseURL + '/api/user';
 
-  constructor(private http: HttpClient) {}
+  private currentUserSubject$: BehaviorSubject<User> =
+    new BehaviorSubject<User>({} as User);
+  public currentUserObs$ = this.currentUserSubject$.asObservable();
 
-  getBasicInfo(): Observable<Result> {
-    const url = this.apiurl + '/basic';
-    return this.http.get<Result>(url);
+  constructor(private userBackendService: UserBackendService) {}
+
+  getCurrentUser(): void {
+    if (this.currentUser == undefined) {
+      this.userBackendService.getBasicInfo().subscribe((result) => {
+        this.currentUser = result.data;
+        this.currentUserSubject$.next(this.currentUser);
+      });
+    }
   }
 }

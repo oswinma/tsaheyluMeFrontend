@@ -1,25 +1,33 @@
+import { UserService } from 'src/app/shared/services/user.service';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree ,Router} from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  RouterStateSnapshot,
+  UrlTree,
+  Router,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuardGuard implements CanActivate {
-
-
-  constructor(private router: Router){}
+  constructor(private router: Router, private userService: UserService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+    state: RouterStateSnapshot
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     let token = localStorage.getItem('access_token') || '';
     let url: string = state.url;
 
     // console.log(token);
     if (token === '') {
-
       // console.log(false);
       // console.log(url);
 
@@ -28,15 +36,13 @@ export class AuthGuardGuard implements CanActivate {
       }
 
       this.router.navigate(['/login']);
-      console.log("here");
+      console.log('here');
       return false;
-    }
-    else{
-
+    } else {
       if (url === '/login') {
         this.router.navigate(['/mylist/new']);
       }
-
+      this.userService.getCurrentUser();
       return true;
     }
 
@@ -49,6 +55,4 @@ export class AuthGuardGuard implements CanActivate {
     this.router.navigate(['/login']);
     return false;
   }
-
-
 }

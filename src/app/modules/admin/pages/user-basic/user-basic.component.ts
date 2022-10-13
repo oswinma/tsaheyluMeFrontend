@@ -73,11 +73,11 @@ export class UserBasicComponent implements OnInit {
     }
   }
   getUserBasicInfo() {
-    this.userService.getBasicInfo().subscribe((result) => {
-      // console.log(data);
-      this.currentUser = result.data;
-      this.userService.currentUser = this.currentUser;
-    });
+    // this.userService.getBasicInfo().subscribe((result) => {
+    //   // console.log(data);
+    //   this.currentUser = result.data;
+    //   this.userService.currentUser = this.currentUser;
+    // });
     // this.currentUser = this.userService.currentUser;
   }
 

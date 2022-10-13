@@ -1,0 +1,13 @@
+<button mat-icon-button  [matMenuTriggerFor]="positionMenu" >
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #positionMenu="matMenu" xPosition="before" yPosition="above">
+  <a mat-menu-item [routerLink]="['/basic']" >Setting</a>
+  <a mat-menu-item [routerLink]="['/friends']" >Friends</a>
+  <a mat-menu-item [routerLink]="['/invitations']" >Invitations</a>
+  <a mat-menu-item [routerLink]="['/messages']" >Messages</a>
+  <a mat-menu-item [routerLink]="['/tools']" >Tools</a>
+  <a mat-menu-item [routerLink]="['/help']" >Help</a>
+  <mat-divider></mat-divider>
+  <a mat-menu-item [routerLink]="['/help']">Log out</a>
+</mat-menu>

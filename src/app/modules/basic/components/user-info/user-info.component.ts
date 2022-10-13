@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { User } from 'src/app/shared/interfaces/user';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-user-info',
@@ -7,12 +9,33 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./user-info.component.css'],
 })
 export class UserInfoComponent implements OnInit {
-  constructor() {}
+  currentUser: User;
 
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
 
-  ngOnInit(): void {}
+  constructor(private userService: UserService) {
+    this.currentUser = {
+      id: 0,
+      email: '',
+      nickname: '',
+      country: '',
+      language: '',
+      avatarURL: '',
+      status: 0,
+      signuptime: new Date('1'),
+      password: '',
+      favurlSubscription: true,
+      emailSubscription: true,
+    };
+  }
+
+  ngOnInit(): void {
+    if (!this.userService.currentUser) {
+      this.userService.getCurrentUser();
+    }
+    this.currentUser = this.userService.currentUser;
+  }
 }

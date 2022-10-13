@@ -11,20 +11,6 @@ import { UserSettingDialogComponent } from '../user-setting-dialog/user-setting-
   styleUrls: ['./user-zone.component.css'],
 })
 export class UserZoneComponent implements OnInit {
-  currentUser: User = {
-    id: 0,
-    email: '',
-    nickname: '',
-    country: '',
-    language: '',
-    avatarURL: '',
-    status: 0,
-    signuptime: new Date('1'),
-    password: '',
-    favurlSubscription: true,
-    emailSubscription: true,
-  };
-
   showMenu = false;
   constructor(
     private userService: UserService,
@@ -32,25 +18,9 @@ export class UserZoneComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    this.getUserBasicInfo();
-    // console.log('user zone com');
-  }
+  ngOnInit(): void {}
 
-  getUserBasicInfo() {
-    this.userService.getBasicInfo().subscribe((result) => {
-      // console.log(data);
-      this.currentUser = result.data;
-      this.userService.currentUser = this.currentUser;
-    });
-    // this.currentUser = this.userService.currentUser;
-  }
-
-  openMenu() {
-    this.dialog.open(UserSettingDialogComponent);
-  }
-
-  isLogin() {
-    return true;
+  get userObs$() {
+    return this.userService.currentUserObs$;
   }
 }

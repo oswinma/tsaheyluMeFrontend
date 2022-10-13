@@ -3,19 +3,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service.service';
 
 @Component({
-  selector: 'app-login-zone',
-  templateUrl: './login-zone.component.html',
-  styleUrls: ['./login-zone.component.css'],
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.css'],
 })
-export class LoginZoneComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-
-    console.log("LoginZoneComponent");
-  }
-
-  // user:User={email:'', password:''};
+  ngOnInit(): void {}
 
   responseContent = '';
   email = '';
@@ -27,10 +22,10 @@ export class LoginZoneComponent implements OnInit {
     this.authService.check(this.email, this.password).subscribe((result) => {
       // console.log( "check");
       // console.log( data);
-        const data = result.data;
+      const data = result.data;
       if (data.pass == 'true') {
         localStorage.setItem('access_token', data.token);
-        this.router.navigate(['mylist','new']);
+        this.router.navigate(['mylist', 'new']);
       } else {
         this.responseContent = data.msg;
         this.responseShow = true;
