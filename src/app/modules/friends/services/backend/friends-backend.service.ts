@@ -1,9 +1,9 @@
-import { GroupDto } from '../interfaces/GroupDto';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { FriendDto } from '../interfaces/friendDto';
+import { FriendDto } from '../../interfaces/FriendDto';
+import { GroupDto } from '../../interfaces/GroupDto';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +11,14 @@ import { FriendDto } from '../interfaces/friendDto';
 export class FriendsBackendService {
   constructor(private http: HttpClient) {}
 
-  private apiurl = environment.baseURL + '/api/friend';
+  private apiurl = environment.baseURL + '/api/friends';
 
   get(friendDto: FriendDto): Observable<Object> {
     return this.http.get(this.apiurl + '/' + friendDto.id);
   }
 
   getAll(): Observable<Object> {
-    return this.http.get(this.apiurl + '/info');
+    return this.http.get(this.apiurl);
   }
 
   getByGroupId(group: GroupDto): Observable<Object> {

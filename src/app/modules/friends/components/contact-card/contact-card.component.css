@@ -1,0 +1,18 @@
+.friendImg {
+  height: 50px;
+  width: 50px;
+  float: left;
+}
+
+.right {
+  float: left;
+}
+.mat-button {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  padding: 0px;
+}
+.middle {
+  float: left;
+}

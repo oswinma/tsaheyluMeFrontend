@@ -1,0 +1,18 @@
+<ng-container *ngIf="contactDtoListObs$ | async as contactDtoList">
+  <mat-grid-list cols="4" rowHeight="50px"
+    id="link_box"
+    sc="favurlService.sc"
+  >
+    <!-- ng-repeat="favurlDto in favurlService.favurlDtos track by $index" -->
+
+    <mat-grid-tile *ngFor="let contactDto of contactDtoList">
+    <app-contact-card
+      [contactDto]="contactDto"
+    ></app-contact-card>
+  </mat-grid-tile>
+  </mat-grid-list>
+</ng-container>
+<ng-template #busy
+  ><div id="loading" class="loading" class="ng-hide">
+    <img src="/assets/images/loading.gif" /></div
+></ng-template>
