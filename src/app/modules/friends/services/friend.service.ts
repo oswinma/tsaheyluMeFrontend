@@ -1,3 +1,4 @@
+import { FriendDto } from './../interfaces/FriendDto';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -10,6 +11,27 @@ import { FriendsBackendService } from './backend/friends-backend.service';
   providedIn: 'root',
 })
 export class FriendService {
+
+  update(contactDto: ContactDto) {
+    this.friendsBackendService
+      .update(this.contactDtoToFriendDto(contactDto))
+      .subscribe((result: any) => {});
+
+  }
+
+  contactDtoToFriendDto(contactDto: ContactDto): FriendDto {
+   let friendDto: FriendDto = {
+      id: contactDto.id,
+      fromid:contactDto.fromid,
+      toid:contactDto.toid,
+      status:contactDto.status,
+      popup:contactDto.popup,
+      bondtime:contactDto.bondtime,
+    };
+
+    return friendDto;
+  }
+
   sc = '';
   stop: boolean = false;
   busy: boolean = false;

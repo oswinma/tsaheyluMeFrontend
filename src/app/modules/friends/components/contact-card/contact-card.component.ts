@@ -1,3 +1,4 @@
+import { FriendService } from './../../services/friend.service';
 import { ContactDto } from '../../interfaces/ContactDto';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -18,12 +19,26 @@ export class ContactCardComponent implements OnInit {
     fromid: 0,
     status: 0,
     popup: false,
+    toid: 0,
+    bondtime: new Date(),
   };
 
-  constructor() {
+  constructor(private friendService: FriendService) {}
 
+  ngOnInit(): void {}
+
+  popup(contactDto: ContactDto) {
+    contactDto.popup = !contactDto.popup;
+    this.friendService.update(contactDto);
   }
 
-  ngOnInit(): void {
+  block(contactDto: ContactDto) {
+    contactDto.status = 2;
+    this.friendService.update(contactDto);
+  }
+
+  unblock(contactDto: ContactDto) {
+    contactDto.status = 1;
+    this.friendService.update(contactDto);
   }
 }

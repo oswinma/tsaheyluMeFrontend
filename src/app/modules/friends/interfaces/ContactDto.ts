@@ -4,6 +4,8 @@ export interface ContactDto {
   nickname: string;
   avatarURL: string;
   friendid: number;
+  toid:number;
+  bondtime:Date;
   groupid: number;
   groupdataid: number;
   fromid: number;

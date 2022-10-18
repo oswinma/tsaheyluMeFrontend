@@ -1,3 +1,4 @@
+import { ContactDto } from './../../interfaces/ContactDto';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -29,16 +30,16 @@ export class FriendsBackendService {
     return this.http.delete(this.apiurl + '/' + friendDto.id);
   }
 
-  update(friendDto: FriendDto): Observable<Object> {
-    return this.http.put(this.apiurl, JSON.stringify(friendDto));
+  update(FriendDto: FriendDto): Observable<Object> {
+    return this.http.put(this.apiurl, FriendDto);
   }
 
   insert(friendDto: FriendDto): Observable<Object> {
-    return this.http.post(this.apiurl, JSON.stringify(friendDto));
+    return this.http.post(this.apiurl, friendDto);
   }
 
   invite(friendDto: FriendDto): Observable<Object> {
-    return this.http.post(this.apiurl + '/invite', JSON.stringify(friendDto));
+    return this.http.post(this.apiurl + '/invite', friendDto);
   }
 
   // /api/friend/inviteemail?nickname=''&email=" + email,

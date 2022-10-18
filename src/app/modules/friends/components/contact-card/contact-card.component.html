@@ -7,16 +7,16 @@
   </div>
   <div class="right">
     <div class="action">
-      <button>
-        <mat-icon>volume_off</mat-icon>
+      <button *ngIf="!contactDto.popup" (click)="popup(contactDto)">
+        <mat-icon  >volume_off</mat-icon>
       </button>
-      <button>
+      <button *ngIf="contactDto.popup" (click)="popup(contactDto)">
         <mat-icon>volume_up</mat-icon>
       </button>
-      <button>
+      <button *ngIf="contactDto.status==1" (click)="block(contactDto)">
         <mat-icon>arrow_right_alt</mat-icon>
       </button>
-      <button>
+      <button  *ngIf="contactDto.status==2" (click)="unblock(contactDto)">
         <mat-icon>arrow_left_alt</mat-icon>
       </button>
     </div>
