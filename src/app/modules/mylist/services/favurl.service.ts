@@ -1,5 +1,4 @@
 import { FavurlDto } from './../interfaces/favurl-dto-model';
-import { FavurlBackendService } from './favurl-backend.service';
 import {
   BehaviorSubject,
   interval,
@@ -17,6 +16,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Result } from 'src/app/shared/interfaces/result';
 import { List } from 'immutable';
+import { FavurlBackendService } from './backend/favurl-backend.service';
 
 @Injectable({
   providedIn: 'root',
@@ -90,7 +90,6 @@ export class FavurlService {
       },
       error: (error) => console.log('Error retrieving Todos'),
     });
-
   }
 
   updateView(favurlDto: FavurlDto) {
@@ -98,7 +97,6 @@ export class FavurlService {
     this.FavurlDtoList[index] = favurlDto;
     this.favurlDtoListSubject$.next(this.FavurlDtoList);
   }
-
 
   removeFromList(favurlDto: FavurlDto) {
     let index = this.FavurlDtoList.findIndex((x) => x.id == favurlDto.id);

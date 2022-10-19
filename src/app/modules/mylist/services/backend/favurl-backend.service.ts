@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { FavurlDto } from '../interfaces/favurl-dto-model';
 import { Result } from 'src/app/shared/interfaces/result';
+import { FavurlDto } from '../../interfaces/favurl-dto-model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import { Result } from 'src/app/shared/interfaces/result';
 export class FavurlBackendService {
   constructor(private http: HttpClient) {}
 
-  private apiurl = environment.baseURL + '/api/favurl';
+  private apiurl = environment.baseURL + '/api/favurls';
 
   get(favurlDto: FavurlDto): Observable<FavurlDto> {
     return this.http.get<FavurlDto>(this.apiurl + '/' + favurlDto.id);
