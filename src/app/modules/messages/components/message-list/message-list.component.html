@@ -1,0 +1,11 @@
+<ng-container *ngIf="messageDtoListObs$ | async as messageDtoList; else busy">
+  <div>
+    <app-message-row *ngFor="let messageDto of messageDtoList" [messageDto]="messageDto">
+    </app-message-row>
+  </div>
+</ng-container>
+<ng-template #busy>
+  <div id="loading" class="loading" class="ng-hide">
+    <img src="/assets/images/loading.gif" />
+  </div>
+</ng-template>

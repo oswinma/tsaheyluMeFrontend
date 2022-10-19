@@ -18,7 +18,7 @@ export class InvitationService {
     private invitationBackendService: InvitationBackendService
   ) {}
 
-  getContactList() {
+  getInvitationList() {
     this.invitationBackendService.getAll().subscribe((result: any) => {
       this.invitationDtoListSubject$.next(result);
     });

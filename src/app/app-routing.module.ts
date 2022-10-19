@@ -59,14 +59,14 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'mylist',
+        path: 'invitations',
         loadChildren: () =>
           import('src/app/modules/invitations/invitations.module').then(
             (m) => m.InvitationsModule
           ),
       },
       {
-        path: 'mylist',
+        path: 'messages',
         loadChildren: () =>
           import('src/app/modules/messages/messages.module').then(
             (m) => m.MessagesModule

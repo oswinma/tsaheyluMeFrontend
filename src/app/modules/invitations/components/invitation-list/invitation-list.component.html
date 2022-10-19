@@ -1,1 +1,12 @@
-<p>invitation-list works!</p>
+<ng-container *ngIf="invitationDtoListObs$ | async as invitationDtoList; else busy">
+  <div>
+    <!-- ng-repeat="favurlDto in favurlService.favurlDtos track by $index" -->
+    <app-invitation-row *ngFor="let invitationDto of invitationDtoList" [invitationDto]="invitationDto">
+    </app-invitation-row>
+  </div>
+</ng-container>
+<ng-template #busy>
+  <div id="loading" class="loading" class="ng-hide">
+    <img src="/assets/images/loading.gif" />
+  </div>
+</ng-template>

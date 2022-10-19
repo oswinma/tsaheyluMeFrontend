@@ -1,22 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MessageDto } from '../interfaces/messageDto';
 import { Result } from '../interfaces/result';
+import { MessageBackendService } from './backend/message-backend.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MessageService {
-  constructor(private http: HttpClient) {}
-  private apiurl = environment.baseURL + '/api/message';
+  constructor(private messageBackendService: MessageBackendService) {}
 
-  num = '';
+  private messageDtoListSubject$: BehaviorSubject<MessageDto[]> =
+    new BehaviorSubject<MessageDto[]>([]);
+  public messageDtoListObs$ = this.messageDtoListSubject$.asObservable();
 
+  getMessageDtoList() {
+    this.messageBackendService.getAll().subscribe((result: any) => {
+      this.messageDtoListSubject$.next(result.data);
+    });
+  }
 
   getUnReadMsgNum(): Observable<Result> {
-    const url = this.apiurl + '/unreadnum';
-    return this.http.get<Result>(url);
-    // return 0;
+    return this.messageBackendService.getUnReadMsgNum();
+  }
+
+  getUnreadMessageDtoList() {
+    this.messageBackendService.getUnread().subscribe((result: any) => {
+      this.messageDtoListSubject$.next(result.data);
+    });
   }
 }

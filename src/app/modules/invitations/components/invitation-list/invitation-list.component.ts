@@ -1,3 +1,4 @@
+import { InvitationService } from './../../service/invitation.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvitationListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private invitationService: InvitationService) { }
 
   ngOnInit(): void {
+  }
+
+  get invitationDtoListObs$() {
+    return this.invitationService.invitationDtoListObs$;
   }
 
 }
