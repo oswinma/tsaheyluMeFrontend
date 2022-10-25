@@ -14,7 +14,7 @@ import { Result } from 'src/app/shared/interfaces/result';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  private apiurl = environment.baseURL + '/api';
+  private apiurl = environment.baseURL + '/api/auth/';
 
   public httpOptions = {
     headers: new HttpHeaders({
@@ -31,20 +31,22 @@ export class AuthService {
     // const params = new HttpParams()
     // .set('email', inputemail);
 
-    const url = this.apiurl + '/user/emailcheck?email=' + inputemail;
+    const url = this.apiurl + 'emailcheck?email=' + inputemail;
     return this.http.post<PostCheckEmailResponseModel>(url, {});
   }
 
-  check(inputemail: string, inputpass: string): Observable<Result> {
+  check(inputemail: string, inputpass: string): Observable<any> {
     // const params = new HttpParams()
     // .set('email', inputemail);
 
     const url =
-      this.apiurl +
-      '/user/check?email=' +
-      inputemail +
-      '&password=' +
-      inputpass;
+      this.apiurl + 'check?email=' + inputemail + '&password=' + inputpass;
     return this.http.post<Result>(url, {});
+  }
+
+  refreshToken(token: string) {
+    return this.http.post(this.apiurl + 'refreshtoken', {
+      refreshToken: token,
+    });
   }
 }

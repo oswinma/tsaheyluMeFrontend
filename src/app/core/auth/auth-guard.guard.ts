@@ -8,12 +8,17 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuardGuard implements CanActivate {
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -23,11 +28,12 @@ export class AuthGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let token = localStorage.getItem('access_token') || '';
+    const token = this.tokenStorageService.getToken();
+
     let url: string = state.url;
 
     // console.log(token);
-    if (token === '') {
+    if (token === '' || token === null || token === undefined) {
       // console.log(false);
       // console.log(url);
 
