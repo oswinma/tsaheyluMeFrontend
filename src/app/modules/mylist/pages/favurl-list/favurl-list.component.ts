@@ -1,3 +1,4 @@
+import { FavurlStatus } from './../../interfaces/favurl-status';
 import { FavurlDto } from './../../interfaces/favurl-dto-model';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,13 +47,22 @@ export class FavurlListComponent implements OnInit {
       urlstring.length
     );
 
-
     /*     this.view$ = this.refresh$.pipe(
       switchMap(() => this.favurlService.getList(this.type)),
       scan((acc, value) => acc.concat(value))
     ); */
-    this.favurlService.getList(this.type);
 
+    switch (this.type) {
+      case 'new':
+        this.favurlService.getList(FavurlStatus.NEW);
+        break;
+      case 'archive':
+        this.favurlService.getList(FavurlStatus.ARCHIVE);
+        break;
+      case 'fav':
+        this.favurlService.getListByFav(true);
+        break;
+    }
   }
 
   markFav(favurlDto: FavurlDto) {

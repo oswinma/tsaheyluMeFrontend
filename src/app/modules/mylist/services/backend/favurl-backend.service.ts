@@ -30,9 +30,36 @@ export class FavurlBackendService {
     return this.http.post<FavurlDto>(this.apiurl, JSON.stringify(favurlDto));
   }
 
-  getList(type: string, sc: string): Observable<Result> {
+  getList(
+    status: number,
+    pageIndex: number,
+    pageSize: number
+  ): Observable<Result> {
     return this.http.get<Result>(
-      this.apiurl + '/' + type + '?startCursor=' + sc
+      this.apiurl +
+        '?status=' +
+        status +
+        '&pageIndex=' +
+        pageIndex +
+        '&pageSize=' +
+        pageSize
+    );
+  }
+
+  getListByFav(
+    fav: boolean,
+    pageIndex: number,
+    pageSize: number
+  ): Observable<Result> {
+    return this.http.get<Result>(
+      this.apiurl +
+        '/fav' +
+        '?fav=' +
+        fav +
+        '&pageIndex=' +
+        pageIndex +
+        '&pageSize=' +
+        pageSize
     );
   }
 }

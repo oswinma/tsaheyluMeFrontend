@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserSettingDialogComponent } from 'src/app/shared/components/user-setting-dialog/user-setting-dialog.component';
@@ -10,7 +11,7 @@ import { UserSettingDialogComponent } from 'src/app/shared/components/user-setti
 export class HeaderComponent implements OnInit {
   showMenu: boolean = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public router: Router) {}
 
   ngOnInit(): void {}
   openMenu() {

@@ -26,6 +26,8 @@ export class FavurlService {
   stop: boolean = false;
   busy: boolean = false;
   favurlType?: string;
+  pageIndex: number = 0;
+  pageSize: number = 10;
 
   // private favurlDtoList$: Subject<List<FavurlDto>> = new Subject<
   //   List<FavurlDto>
@@ -75,21 +77,42 @@ export class FavurlService {
       });
   }*/
 
-  getList(favurlType: string) {
+  getList(status: number) {
     // if (this.stop) return null;
     // if (this.busy) return null;
     console.log('getlist');
-    this.backendService.getList(favurlType, this.sc).subscribe({
-      next: (result) => {
-        console.log(result);
-        let data = result.data;
-        if (this.sc == data.startCursor) this.stop = true;
-        this.sc = data.startCursor;
-        this.FavurlDtoList = result.data.FavurlDtoList;
-        this.favurlDtoListSubject$.next(this.FavurlDtoList);
-      },
-      error: (error) => console.log('Error retrieving Todos'),
-    });
+    this.backendService
+      .getList(status, this.pageIndex, this.pageSize)
+      .subscribe({
+        next: (result) => {
+          console.log(result);
+          let data = result.data;
+          if (this.pageIndex == data.pageIndex) this.stop = true;
+          this.pageIndex = data.pageIndex;
+          this.FavurlDtoList = result.data.FavurlDtoList;
+          this.favurlDtoListSubject$.next(this.FavurlDtoList);
+        },
+        error: (error) => console.log('Error retrieving Todos'),
+      });
+  }
+
+  getListByFav(fav: boolean) {
+    // if (this.stop) return null;
+    // if (this.busy) return null;
+    console.log('getlist');
+    this.backendService
+      .getListByFav(fav, this.pageIndex, this.pageSize)
+      .subscribe({
+        next: (result) => {
+          console.log(result);
+          let data = result.data;
+          if (this.pageIndex == data.pageIndex) this.stop = true;
+          this.pageIndex = data.pageIndex;
+          this.FavurlDtoList = result.data.FavurlDtoList;
+          this.favurlDtoListSubject$.next(this.FavurlDtoList);
+        },
+        error: (error) => console.log('Error retrieving Todos'),
+      });
   }
 
   updateView(favurlDto: FavurlDto) {
