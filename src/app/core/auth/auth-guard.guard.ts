@@ -28,16 +28,20 @@ export class AuthGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const token = this.tokenStorageService.getToken();
+    const token = this.tokenStorageService.getAccessToken();
 
     let url: string = state.url;
 
-    // console.log(token);
     if (token === '' || token === null || token === undefined) {
-      // console.log(false);
-      // console.log(url);
+      if (url.startsWith('/login')) {
+        const accessToken = route.queryParamMap.get('accessToken');
+        const refreshToken = route.queryParamMap.get('refreshToken');
 
-      if (url === '/login') {
+        if (accessToken && refreshToken) {
+          this.tokenStorageService.saveAccessToken(accessToken);
+          this.tokenStorageService.saveRefreshToken(refreshToken);
+          this.router.navigate(['/mylist/new']);
+        }
         return true;
       }
 

@@ -42,9 +42,9 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     // console.log(`原始的请求信息：${JSON.stringify(req.headers)}`);
 
     // 获取请求中的 token 信息
-    const token = this.tokenStorageService.getToken();
-    if (token != null) {
-      req = this.addTokenHeader(req, token);
+    const accessToken = this.tokenStorageService.getAccessToken();
+    if (accessToken != null) {
+      req = this.addTokenHeader(req, accessToken);
     }
 
     return next.handle(req).pipe(
@@ -77,29 +77,37 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
-      const token = this.tokenStorageService.getRefreshToken();
+      const refreshToken = this.tokenStorageService.getRefreshToken();
 
-      if (token)
-        return this.authService.refreshToken(token).pipe(
-          switchMap((token: any) => {
+      if (refreshToken)
+        return this.authService.refreshToken(refreshToken).pipe(
+          switchMap((tokenRefreshResponse: any) => {
             this.isRefreshing = false;
 
-            this.tokenStorageService.saveToken(token.accessToken);
-            this.refreshTokenSubject.next(token.refreshToken);
+            this.tokenStorageService.saveAccessToken(
+              tokenRefreshResponse.accessToken
+            );
 
-            return next.handle(this.addTokenHeader(request, token.accessToken));
+            this.tokenStorageService.saveRefreshToken(
+              tokenRefreshResponse.refreshToken
+            );
+
+            this.refreshTokenSubject.next(tokenRefreshResponse.accessToken);
+
+            return next.handle(
+              this.addTokenHeader(request, tokenRefreshResponse.accessToken)
+            );
           }),
           catchError((err) => {
             this.isRefreshing = false;
 
-            this.tokenStorageService.signOut();
-            this.router.navigate(['/login']);
+            this.authService.logout();
+
             return throwError(err);
           })
         );
       else {
-        this.tokenStorageService.signOut();
-        this.router.navigate(['/login']);
+        this.authService.logout();
         return throwError('No refresh token');
       }
     }
@@ -111,10 +119,10 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     );
   }
 
-  private addTokenHeader(request: HttpRequest<any>, token: string) {
+  private addTokenHeader(request: HttpRequest<any>, accessToken: string) {
     /* for Spring Boot back-end */
     return request.clone({
-      headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
+      headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + accessToken),
     });
 
     /* for Node.js Express back-end */

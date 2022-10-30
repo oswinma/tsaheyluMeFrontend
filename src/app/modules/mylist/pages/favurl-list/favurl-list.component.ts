@@ -1,3 +1,4 @@
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { FavurlStatus } from './../../interfaces/favurl-status';
 import { FavurlDto } from './../../interfaces/favurl-dto-model';
 import { Component, Input, OnInit } from '@angular/core';
@@ -35,11 +36,7 @@ export class FavurlListComponent implements OnInit {
 
   // public view$: Observable<FavurlDto[]> = new Observable<FavurlDto[]>();
 
-  constructor(
-    private favurlService: FavurlService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {
+  constructor(private favurlService: FavurlService, private router: Router) {
     const urlstring = this.router.url;
     // console.log(urlstring);
     this.type = urlstring.substring(
@@ -76,7 +73,5 @@ export class FavurlListComponent implements OnInit {
     return this.favurlService.clickLoad$;
   }
 
-  ngOnInit(): void {
-    this.clickLoad$.next();
-  }
+  ngOnInit(): void {}
 }

@@ -15,7 +15,7 @@ export class TokenStorageService {
     window.localStorage.clear();
   }
 
-  public saveToken(token: string): void {
+  public saveAccessToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
 
@@ -25,7 +25,7 @@ export class TokenStorageService {
     }
   }
 
-  public getToken(): string | null {
+  public getAccessToken(): string | null {
     return window.localStorage.getItem(TOKEN_KEY);
   }
 

@@ -7,12 +7,18 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PostCheckEmailResponseModel } from 'src/app/shared/interfaces/post-check-email-response-model';
 import { Result } from 'src/app/shared/interfaces/result';
+import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private tokenStorageService: TokenStorageService
+  ) {}
 
   private apiurl = environment.baseURL + '/api/auth/';
 
@@ -48,5 +54,10 @@ export class AuthService {
     return this.http.post(this.apiurl + 'refreshtoken', {
       refreshToken: token,
     });
+  }
+
+  logout() {
+    this.tokenStorageService.signOut();
+    this.router.navigate(['/login']);
   }
 }

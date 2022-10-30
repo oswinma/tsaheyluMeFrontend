@@ -9,5 +9,5 @@
   <a mat-menu-item [routerLink]="['/tools']" >Tools</a>
   <a mat-menu-item [routerLink]="['/help']" >Help</a>
   <mat-divider></mat-divider>
-  <a mat-menu-item [routerLink]="['/help']">Log out</a>
+  <a mat-menu-item [routerLink]="['/help']" (click)="logout()">Log out</a>
 </mat-menu>

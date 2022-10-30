@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardGuard } from './core/auth/auth-guard.guard';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
-import { LoginRoutingModule } from './modules/login/login.routing';
 
 const routes: Routes = [
   {
@@ -13,9 +12,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('src/app/modules/login/login.module').then(
-        (m) => m.LoginModule
-      ),
+      import('src/app/modules/login/login.module').then((m) => m.LoginModule),
     canActivate: [AuthGuardGuard],
   },
   {
@@ -23,13 +20,6 @@ const routes: Routes = [
     component: ContentLayoutComponent,
     canActivate: [AuthGuardGuard], // Should be replaced with actual auth guard
     children: [
-      /*       {
-        path: 'login',
-        loadChildren: () =>
-          import('src/app/modules/login/login.module').then(
-            (m) => m.LoginModule
-          ),
-      }, */
       {
         path: 'admin',
         loadChildren: () =>

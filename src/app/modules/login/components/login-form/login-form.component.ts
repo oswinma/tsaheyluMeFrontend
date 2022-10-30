@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { AuthService } from '../../services/auth-service.service';
 
@@ -12,7 +12,7 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
   ) {}
 
   ngOnInit(): void {}
@@ -29,7 +29,7 @@ export class LoginFormComponent implements OnInit {
       // console.log( data);
       const data = result;
       if (data.pass == 'true') {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveAccessToken(data.accessToken);
         this.tokenStorage.saveRefreshToken(data.refreshToken);
         this.router.navigate(['mylist', 'new']);
       } else {

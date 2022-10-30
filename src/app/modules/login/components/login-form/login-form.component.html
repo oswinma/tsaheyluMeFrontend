@@ -3,7 +3,7 @@
     <h2>Sign in</h2>
     <div>
       <div class="input_box">
-        <input type="email"  [(ngModel)]="email" (keydown.enter)="check()" autofocus (focusout)="emailCheck()"
+        <input type="email" [(ngModel)]="email" (keydown.enter)="check()" autofocus (focusout)="emailCheck()"
           name="email" placeholder="Email" />
       </div>
       <div class="input_box">
@@ -24,13 +24,16 @@
     <span>Or you can:</span>
     <ul>
       <li>
-        <a href="/api/service/googleOAuth"><img src="assets/images/google_login.png" /></a>
+        <a href="http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:4200/login"><img
+            src="assets/images/google_login.png" /></a>
       </li>
       <li>
-        <a href="/api/service/facebookOAuth"><img src="assets/images/facebook_login.png" /></a>
+        <a href="/oauth2/authorization/facebook?redirect_uri=http://localhost:4200/login"><img
+            src="assets/images/facebook_login.png" /></a>
       </li>
       <li>
-        <a href="/api/service/twitterOAuth"><img src="assets/images/twitter_login.png" /></a>
+        <a href="/oauth2/authorization/twitter?redirect_uri=http://localhost:4200/login"><img
+            src="assets/images/twitter_login.png" /></a>
       </li>
     </ul>
   </div>
