@@ -60,4 +60,16 @@ export class AuthService {
     this.tokenStorageService.signOut();
     this.router.navigate(['/login']);
   }
+
+  signup(form: any): Observable<any> {
+    const url = this.apiurl + 'signup';
+
+    const data = {
+      nickName: form.nickName,
+      email: form.email,
+      password: form.password,
+    };
+
+    return this.http.post<Result>(url, data);
+  }
 }

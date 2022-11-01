@@ -1,39 +1,38 @@
-<div id="login_box">
-  <div class="left">
-    <h2>Sign in</h2>
-    <div>
-      <div class="input_box">
-        <input type="email" [(ngModel)]="email" (keydown.enter)="check()" autofocus (focusout)="emailCheck()"
-          name="email" placeholder="Email" />
-      </div>
-      <div class="input_box">
-        <input type="password" [(ngModel)]="password" (keydown.enter)="check()" name="password"
-          placeholder="Password" />
-      </div>
-      <p>
-        <a href="/forgot.html">Forget password?</a>
-        <input type="button" class="StandardBtn orange submit" (click)="check()" value="Sign in" />
-      </p>
-      <p>
-        <a href="/signup.html">Don't have an account? Create one.</a>
-      </p>
-      <p class="wrong_info" *ngIf="responseShow">{{ responseContent }}</p>
+<div class="screen_center">
+  <h2>Sign in</h2>
+  <div>
+    <div class="input_box">
+      <input class="input-line" type="email" [(ngModel)]="email" autofocus (focusout)="emailCheck()" name="email"
+        placeholder="Email" />
     </div>
+    <div class="input_box">
+      <input class="input-line" type="password" [(ngModel)]="password" name="password" placeholder="Password" />
+    </div>
+    <p>
+      <input type="button" class="standard-button orange submit" (click)="check()" value="Sign in" />
+    </p>
+    <P class="text-line">
+      <a [routerLink]="['/forget']">Forget password?</a>
+    </P>
+    <p class="text-line">
+      <a [routerLink]="['/signup']">Don't have an account? Create one.</a>
+    </p>
+    <p class="wrong_info" *ngIf="responseShow">{{ responseContent }}</p>
   </div>
   <div id="oauth_login">
-    <span>Or you can:</span>
+    <div class="divider"><span>OR</span></div>
     <ul>
       <li>
-        <a href="http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:4200/login"><img
-            src="assets/images/google_login.png" /></a>
+        <a class="social-login-link"
+          href="http://localhost:8080/oauth2/authorization/google?redirect_uri=http://localhost:4200/login">
+          <img class="social-login-img" src="assets/images/google.png" />
+          <span class="social-login-text">Continue with Google</span></a>
       </li>
       <li>
-        <a href="/oauth2/authorization/facebook?redirect_uri=http://localhost:4200/login"><img
-            src="assets/images/facebook_login.png" /></a>
-      </li>
-      <li>
-        <a href="/oauth2/authorization/twitter?redirect_uri=http://localhost:4200/login"><img
-            src="assets/images/twitter_login.png" /></a>
+        <a class="social-login-link"
+          href="http://localhost:8080/oauth2/authorization/facebook?redirect_uri=http://localhost:4200/login">
+          <img class="social-login-img" src="assets/images/facebook.png" />
+          <span class="social-login-text">Continue with Facebook</span></a>
       </li>
     </ul>
   </div>
