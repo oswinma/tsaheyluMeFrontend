@@ -75,11 +75,26 @@ export class AuthService {
 
   verifyToken(token: string): Observable<any> {
     const url = this.apiurl + 'verify' + '?token=' + token;
+    return this.http.get<Result>(url, {});
+  }
+
+  verifyEmail(token: string): Observable<any> {
+    const url = this.apiurl + 'verifyEmail' + '?token=' + token;
     return this.http.post<Result>(url, {});
   }
 
   resendToken(token: string): Observable<any> {
     const url = this.apiurl + 'resend' + '?token=' + token;
     return this.http.post<Result>(url, {});
+  }
+
+  resetPassword(email: any) {
+    const url = this.apiurl + 'resetPassword';
+    return this.http.post<Result>(url, { email: email });
+  }
+
+  updatePassword(password: string, token: string) {
+    const url = this.apiurl + 'updatePassword';
+    return this.http.patch<Result>(url, { password: password, token: token });
   }
 }

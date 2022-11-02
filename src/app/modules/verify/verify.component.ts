@@ -22,7 +22,7 @@ export class VerifyComponent implements OnInit {
   ngOnInit(): void {
     this.token = this.route.snapshot.queryParamMap.get('token');
     if (this.token) {
-      this.authService.verifyToken(this.token).subscribe(
+      this.authService.verifyEmail(this.token).subscribe(
         (data) => {
           this.status = TokenStatus.VALID;
         },

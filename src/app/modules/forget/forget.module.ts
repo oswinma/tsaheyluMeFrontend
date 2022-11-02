@@ -3,15 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { ForgetRoutingModule } from './forget-routing.module';
 import { ForgetComponent } from './forget.component';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [
-    ForgetComponent
-  ],
-  imports: [
-    CommonModule,
-    ForgetRoutingModule
-  ]
+  declarations: [ForgetComponent],
+  imports: [SharedModule, ForgetRoutingModule],
 })
-export class ForgetModule { }
+export class ForgetModule {}

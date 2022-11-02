@@ -30,7 +30,7 @@ import { DefaultLayoutComponent } from './layout/default-layout/default-layout.c
     ContentLayoutComponent,
     LeftNavComponent,
     MenuComponent,
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
   ],
 
   bootstrap: [AppComponent],
