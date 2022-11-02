@@ -12,6 +12,7 @@ import * as Sentry from '@sentry/angular';
 import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuComponent } from './layout/menu/menu.component';
+import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { MenuComponent } from './layout/menu/menu.component';
     AppComponent,
     ContentLayoutComponent,
     LeftNavComponent,
-    MenuComponent
+    MenuComponent,
+    DefaultLayoutComponent
   ],
 
   bootstrap: [AppComponent],

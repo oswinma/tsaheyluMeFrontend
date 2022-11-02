@@ -72,4 +72,14 @@ export class AuthService {
 
     return this.http.post<Result>(url, data);
   }
+
+  verifyToken(token: string): Observable<any> {
+    const url = this.apiurl + 'verify' + '?token=' + token;
+    return this.http.post<Result>(url, {});
+  }
+
+  resendToken(token: string): Observable<any> {
+    const url = this.apiurl + 'resend' + '?token=' + token;
+    return this.http.post<Result>(url, {});
+  }
 }

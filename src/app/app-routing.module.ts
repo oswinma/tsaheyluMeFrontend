@@ -1,3 +1,4 @@
+import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardGuard } from './core/auth/auth-guard.guard';
@@ -11,6 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+    component: DefaultLayoutComponent,
     loadChildren: () =>
       import('src/app/modules/login/login.module').then((m) => m.LoginModule),
     canActivate: [AuthGuardGuard],
@@ -64,8 +66,24 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'signup', loadChildren: () => import('./modules/signup/signup.module').then(m => m.SignupModule) },
-  { path: 'forget', loadChildren: () => import('./modules/forget/forget.module').then(m => m.ForgetModule) },
+  {
+    path: 'signup',
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import('./modules/signup/signup.module').then((m) => m.SignupModule),
+  },
+  {
+    path: 'forget',
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import('./modules/forget/forget.module').then((m) => m.ForgetModule),
+  },
+  {
+    path: 'verify',
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import('./modules/verify/verify.module').then((m) => m.VerifyModule),
+  },
 
   // {
   //   path: 'login',
