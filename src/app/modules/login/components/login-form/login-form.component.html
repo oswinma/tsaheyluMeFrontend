@@ -1,24 +1,36 @@
 <div class="screen-center">
   <h2>Sign in</h2>
-  <div>
+  <form [formGroup]='form' (ngSubmit)='check()'>
     <div class="input_box">
-      <input class="input-line" type="email" [(ngModel)]="email" autofocus (focusout)="emailCheck()" name="email"
-        placeholder="Email" />
+      <input class="input-line" type="email" formControlName="email" name="email" autofocus placeholder="Email"
+        required />
     </div>
+    <mat-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+      <div *ngIf="email?.errors?.['required']">Email is required</div>
+      <div *ngIf="email?.errors?.['email']">Email is invalid</div>
+      <div *ngIf="email?.errors?.['userNotExsited']">User doesn't exsited with the email</div>
+    </mat-error>
     <div class="input_box">
-      <input class="input-line" type="password" [(ngModel)]="password" name="password" placeholder="Password" />
+      <input class="input-line" type="password" formControlName="password" name="password" placeholder="Password"
+        required minlength="8" />
     </div>
+    <mat-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+      <div *ngIf="password?.errors?.['required']">Password is required</div>
+      <div *ngIf="password?.errors?.['minlength']">Password must be at least 8 characters</div>
+    </mat-error>
     <p>
-      <input type="button" class="standard-button orange submit" (click)="check()" value="Sign in" />
+      <input type="submit" class="standard-button orange submit" value="Sign in" />
     </p>
+    <mat-error *ngIf="responseShow">
+      {{responseContent}}
+    </mat-error>
     <P class="text-line">
       <a [routerLink]="['/forget']">Forget password?</a>
     </P>
     <p class="text-line">
       <a [routerLink]="['/signup']">Don't have an account? Create one.</a>
     </p>
-    <p class="wrong_info" *ngIf="responseShow">{{ responseContent }}</p>
-  </div>
+  </form>
   <div id="oauth_login">
     <div class="divider"><span>OR</span></div>
     <ul>

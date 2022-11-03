@@ -4,39 +4,39 @@
     <div class="input_box">
       <label for="displayName">NickName</label> <input type="text" class="input-line" name="displayName"
         [(ngModel)]="form.nickName" required minlength="3" maxlength="20" #nickName="ngModel" />
-      <div class="alert-danger" *ngIf="f.submitted && nickName.invalid">
-        <div *ngIf="nickName.errors?.['required']">Display Name is required</div>
-        <div *ngIf="nickName.errors?.['minlength']">Display Name must be at least 3 characters</div>
-        <div *ngIf="nickName.errors?.['maxlength']">Display Name must be at most 20 characters</div>
-      </div>
     </div>
+    <mat-error class="alert-danger" *ngIf="f.submitted && nickName.invalid">
+      <div *ngIf="nickName.errors?.['required']">Display Name is required</div>
+      <div *ngIf="nickName.errors?.['minlength']">Display Name must be at least 3 characters</div>
+      <div *ngIf="nickName.errors?.['maxlength']">Display Name must be at most 20 characters</div>
+    </mat-error>
     <div class="input_box">
       <label for="email">Email</label> <input type="email" class="input-line" name="email" [(ngModel)]="form.email"
         required email #email="ngModel" />
-      <div class="alert-danger" *ngIf="f.submitted && email.invalid">
-        <div *ngIf="email.errors?.['required']">Email is required</div>
-        <div *ngIf="email.errors?.['email']">Email must be a valid email address</div>
-      </div>
     </div>
+    <mat-error class="alert-danger" *ngIf="f.submitted && email.invalid">
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['email']">Email must be a valid email address</div>
+    </mat-error>
     <div class="input_box">
       <label for="password">Password</label> <input type="password" class="input-line" name="password"
         [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
-      <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-        <div *ngIf="password.errors?.['required']">Password is required</div>
-        <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</div>
-      </div>
     </div>
+    <mat-error class="alert-danger" *ngIf="f.submitted && password.invalid">
+      <div *ngIf="password.errors?.['required']">Password is required</div>
+      <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</div>
+    </mat-error>
     <div class="input_box">
       <label for="matchingPassword">Confirm Password</label> <input type="password" class="input-line"
         name="matchingPassword" [(ngModel)]="form.matchingPassword" required minlength="6"
         #matchingPassword="ngModel" />
-      <div class="alert-danger" *ngIf="f.submitted && matchingPassword.invalid">
-        <div *ngIf="matchingPassword.errors?.['required']">Confirm Password is required</div>
-        <div *ngIf="matchingPassword.errors?.['minlength']">Confirm Password must be at least 6 characters</div>
-      </div>
     </div>
-    <div >
-      <button  class="standard-button orange">Sign Up</button>
+    <mat-error class="alert-danger" *ngIf="f.submitted && matchingPassword.invalid">
+      <div *ngIf="matchingPassword.errors?.['required']">Confirm Password is required</div>
+      <div *ngIf="matchingPassword.errors?.['minlength']">Confirm Password must be at least 6 characters</div>
+    </mat-error>
+    <div>
+      <button class="standard-button orange">Sign Up</button>
     </div>
     <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
       Signup failed!<br />{{ errorMessage }}

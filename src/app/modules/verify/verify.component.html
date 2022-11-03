@@ -6,7 +6,7 @@
       </div>
       <div class="form-group" *ngIf="status == tokenStatus.EXPIRED">
           <div class="alert alert-danger" role="alert">Link Expired!</div>
-          <button class="btn btn-primary btn-block" (click)="resendToken()">Re-send Verification Email</button>
+          <button class="standard-button" (click)="resendToken()">Re-send Verification Email</button>
       </div>
       <div class="form-group" *ngIf="status == tokenStatus.SENDING">
           <div class="alert alert-info" role="alert">Sending mail...</div>

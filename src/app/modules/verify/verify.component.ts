@@ -35,6 +35,10 @@ export class VerifyComponent implements OnInit {
           if (err.error.message === 'TokenExpiredException') {
             this.status = TokenStatus.EXPIRED;
           }
+
+          if (err.error.message === 'EmailAlreadyVerifiedException') {
+            this.status = TokenStatus.EXPIRED;
+          }
         }
       );
     }

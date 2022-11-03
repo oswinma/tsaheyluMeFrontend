@@ -42,22 +42,6 @@ a {
   text-decoration: none;
 }
 
-
-.text-line {
-  text-align: center;
-  margin-top: 10px;
-  font-family: Graphik Web, proxima-nova, Helvetica Neue, Helvetica, Arial,
-    sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #008078;
-}
-.text-line a {
-  color: #008078;
-  text-decoration: none;
-  border-bottom: none;
-}
-
 .divider {
   text-align: center;
   position: relative;

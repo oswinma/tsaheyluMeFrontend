@@ -14,38 +14,6 @@ import { TokenStatus } from 'src/app/shared/interfaces/TokenStatus';
 import { CustomValidator } from 'src/app/shared/validators/CustomValidator';
 import { AuthService } from '../login/services/auth-service.service';
 
-export const identityRevealedValidator: ValidatorFn = (
-  control: AbstractControl
-): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-
-  if (
-    (password?.touched || password?.dirty) &&
-    (confirmPassword?.touched || confirmPassword?.dirty)
-  ) {
-    if (password.value !== confirmPassword.value) {
-      return { passwordNotMatch: true };
-    }
-  }
-
-  return null;
-};
-
-export const passwordMatchingValidatior: ValidatorFn = (
-  control: AbstractControl
-): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-
-  if (password?.value === confirmPassword) {
-    return null;
-  } else {
-    confirmPassword?.setErrors({ passwordNotMatch: true });
-    return { passwordNotMatch: true };
-  }
-};
-
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -58,11 +26,13 @@ export class ResetPasswordComponent implements OnInit {
   isTokenChecked = false;
   isSuccessful = false;
 
-  public form = this.formBuilder.group({
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-    validator: this.checkPasswords,
-  });
+  public form = this.formBuilder.group(
+    {
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+    },
+    { validators: CustomValidator.passwordMatchingValidatior }
+  );
 
   checkPasswords(group: FormGroup) {
     const pass = group.controls['password'].value;

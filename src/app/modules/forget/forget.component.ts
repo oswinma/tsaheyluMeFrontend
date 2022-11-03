@@ -1,6 +1,7 @@
 import { AuthService } from 'src/app/modules/login/services/auth-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { emailExsitedValidatior } from 'src/app/shared/validators/CustomValidator';
 
 @Component({
   selector: 'app-forget',
@@ -8,22 +9,16 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./forget.component.css'],
 })
 export class ForgetComponent implements OnInit {
-  public email = new FormControl('', [Validators.required, Validators.email]);
+  public email = new FormControl(
+    '',
+    [Validators.required, Validators.email],
+    emailExsitedValidatior(this.authService)
+  );
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
   isSuccessful = false;
-
-  emailCheck() {
-    if (this.email.valid) {
-      this.authService.emailCheck(this.email.value).subscribe((data) => {
-        if (data.pass === 'true') {
-          this.email.setErrors({ notExsited: true });
-        }
-      });
-    }
-  }
 
   resetPassword() {
     if (this.email.valid)
