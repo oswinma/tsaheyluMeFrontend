@@ -92,6 +92,12 @@ const routes: Routes = [
         (m) => m.ResetPasswordModule
       ),
   },
+  {
+    path: 'privacy',
+    component: DefaultLayoutComponent,
+    loadChildren: () =>
+      import('./modules/privacy/privacy.module').then((m) => m.PrivacyModule),
+  },
 
   // {
   //   path: 'login',
